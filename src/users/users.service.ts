@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersDTO } from './users.dto';
 import { PrismaService } from 'src/database/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,12 @@ export class UsersService {
 
     if (userAlreadyExists) throw new Error('Usuário já registrado');
 
-    const user = await this.prismaService.user.create({ data });
+    const { email, name, password } = data;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await this.prismaService.user.create({
+      data: { email, name, password: hashedPassword },
+    });
 
     return user;
   }

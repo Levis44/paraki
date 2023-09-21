@@ -6,7 +6,7 @@ async function main() {
     data: {
       email: 'admin@admin.com',
       name: 'admin',
-      password: 'admin123',
+      password: '$2b$10$NAHJ/zWy46esn0NOXnWo3erEJU8TizLOgq7sWzDNPvUrC2njGNuWm',
     },
   });
 }
